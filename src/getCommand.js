@@ -1,9 +1,11 @@
-const GetCommand = () => {
-  let commandDict = {};
+const Moving = require('./moving');
+
+const GetCommand = (robot, directions) => {
+  let commandList = [];
   process.stdout.write('Enter the command: ');
 
   process.stdin.on('data', (input) => {
-    const command = input.toString();
+    const command = input.toString().replace('\n', '');
     if (command.includes(' ')) {
       const splitCommand = command.split(' ');
       const mainCommand = splitCommand[0];
@@ -11,21 +13,21 @@ const GetCommand = () => {
       const direction = positionDirection[0];
       const positionX = positionDirection[1];
       const positionY = positionDirection[2];
-      commandDict = {
-        mainCommand,
-        direction,
+      commandList = [
+        mainCommand.toString(),
+        direction.toString(),
         positionX,
         positionY,
-      };
+      ];
     } else {
-      commandDict = {
-        mainCommand: command,
-      };
+      commandList = [command];
     }
 
-    console.log(commandDict);
+    robot = Moving(commandList, robot, directions);
+    console.log('Enter the command: ');
   });
-  return commandDict;
+
+  return (commandList);
 };
 
 module.exports = GetCommand;

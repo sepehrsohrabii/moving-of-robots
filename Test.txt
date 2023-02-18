@@ -1,0 +1,7 @@
+PLACE 0,2,SOUTH
+MOVE
+LEFT
+RIGHT
+REPORT
+
+THE RESULT MIGHT BE: { x: '0', y: 1, direction: 'SOUTH' }
